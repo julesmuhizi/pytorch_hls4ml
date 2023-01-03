@@ -1,0 +1,15 @@
+name: mnist_37
+channels:
+  - conda-forge
+dependencies:
+  - python=3.7
+  - pip
+  - networkx=2.5=py_0
+  - pip:
+    - jupyter==1.0.0
+    - pydot==1.4.2
+    - graphviz==0.19.1
+    - torch==1.12.1+cu113
+    - torchaudio==0.12.1+cu113
+    - torchvision==0.13.1+cu113
+    - torchinfo==1.7.1
