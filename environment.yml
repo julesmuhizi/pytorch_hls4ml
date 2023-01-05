@@ -13,3 +13,5 @@ dependencies:
     - torchaudio==0.12.1+cu113
     - torchvision==0.13.1+cu113
     - torchinfo==1.7.1
+    - git+https://github.com/fastmachinelearning/qonnx.git
+    - git+https://github.com/fastmachinelearning/hls4ml.git

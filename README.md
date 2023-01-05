@@ -20,3 +20,15 @@ CNN(
   (out): Linear(in_features=1568, out_features=10, bias=True)
 )
 ```
+### Make the environment
+```
+conda env create -f environment.yml
+```
+
+### Re-train model (if needed)
+```
+make train
+```
+
+
+
