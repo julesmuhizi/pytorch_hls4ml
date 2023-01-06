@@ -25,10 +25,21 @@ CNN(
 conda env create -f environment.yml
 ```
 
-### Re-train model (if needed)
+### Train model (if needed)
+Train MLP 
 ```
-make train
+make train-MLP
 ```
-
-
-
+Train CNN 
+```
+make train-CNN
+```
+### Convert model
+Convert MLP with hls4ml (QONNX)
+```
+make convert-MLP
+```
+Convert CNN with hls4ml (QONNX)
+```
+make convert-CNN
+```

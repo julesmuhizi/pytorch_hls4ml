@@ -30,13 +30,14 @@ class CNN(nn.Module):
             nn.ReLU(),                      
             nn.MaxPool2d(2),                
         )
+        self.flatten = nn.Flatten(1,3)
         # fully connected layer, output 10 classes
         self.out = nn.Linear(32 * 7 * 7, 10)
     def forward(self, x):
         x = self.conv1(x)
         x = self.conv2(x)
         # flatten the output of conv2 to (batch_size, 32 * 7 * 7)
-        x = x.view(x.size(0), -1)       
+        x = self.flatten(x)
         output = self.out(x)
         return output  # return x for visualization
 
@@ -68,7 +69,7 @@ test_loader = torch.utils.data.DataLoader(
                 batch_size=batch_size,
                 shuffle=False)
 
-if not os.path.exists('model/model.pth'):
+if not os.path.exists('model/CNN_mnist.pth'):
     for epoch in range(10):  # loop over the dataset multiple times
         running_loss = 0.0
         for i, data in tqdm.tqdm(enumerate(train_loader, 0), total = len(train_loader)):
@@ -110,5 +111,6 @@ with torch.no_grad():
 
 print(f'Accuracy of the network on the 10000 test images: {100 * correct // total} %')
 
-torch.save(model, 'model/model.pth')
-torch.onnx.export(model, next(iter(test_loader))[0][0], 'model/model.onnx')
+torch.save(model, 'model/CNN_mnist.pth')
+model.to('cpu')
+torch.onnx.export(model, next(iter(test_loader))[0][0], 'model/CNN_mnist.onnx')
