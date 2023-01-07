@@ -68,8 +68,9 @@ test_loader = torch.utils.data.DataLoader(
                 dataset=test_set,
                 batch_size=batch_size,
                 shuffle=False)
-
-if not os.path.exists('model/mnist_CNN.pth'):
+                
+PATH = 'model/CNN/mnist_CNN'
+if not os.path.exists(PATH):
     for epoch in range(10):  # loop over the dataset multiple times
         running_loss = 0.0
         for i, data in tqdm.tqdm(enumerate(train_loader, 0), total = len(train_loader)):
@@ -111,6 +112,6 @@ with torch.no_grad():
 
 print(f'Accuracy of the network on the 10000 test images: {100 * correct // total} %')
 
-torch.save(model, 'model/mnist_CNN.pth')
+torch.save(model, '{}.pth'.format(PATH))
 model.to('cpu')
-torch.onnx.export(model, next(iter(test_loader))[0][0], 'model/mnist_CNN.onnx')
+torch.onnx.export(model, next(iter(test_loader))[0][0], '{}.onnx'.format(PATH))

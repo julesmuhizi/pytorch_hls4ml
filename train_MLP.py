@@ -52,7 +52,7 @@ test_loader = torch.utils.data.DataLoader(
                 batch_size=test_batch_size,
                 shuffle=False)
 
-PATH = 'model/mnist_MLP.pth'
+PATH = 'model/MLP/mnist_MLP'
 if not os.path.exists(PATH):
     for epoch in range(10):  # loop over the dataset multiple times
         running_loss = 0.0
@@ -99,4 +99,6 @@ with torch.no_grad():
 
 print(f'Accuracy of the network on the 10000 test images: {100 * correct // total} %')
 
-torch.save(model, PATH)
+torch.save(model, '{}.pth'.format(PATH))
+model.to('cpu')
+torch.onnx.export(model, next(iter(test_loader))[0][0], '{}.onnx'.format(PATH))
